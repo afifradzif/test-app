@@ -2,6 +2,7 @@ import { View, Text, ScrollView, Image } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Connection from '../connectivity/Connection';
 import { PrimaryLoader } from '../components/MainComponent';
+import moment from 'moment';
 
 let Server = new Connection();
 
@@ -36,7 +37,7 @@ const UserScreen = ({ route }) => {
                     <View style={{ position: 'absolute', alignSelf: 'center', marginTop: 10, zIndex: 10 }}>
                         <Image
                             style={{ backgroundColor: '#4d4d4d', height: 100, width: 100, marginBottom: 5, borderColor: '#fff', borderWidth: 5, borderRadius: 50, alignSelf: 'center' }}
-                            source={{ uri: 'https://i.pravatar.cc/300' }}
+                            source={{ uri: 'https://i.pravatar.cc/300?' + (moment().format('MM-DD-YYYY hh:mm:ss')) }}
                         />
                     </View>
                     <View style={{ height: 50, marginTop: 50, borderTopRightRadius: 0, borderTopLeftRadius: 0 }} />
