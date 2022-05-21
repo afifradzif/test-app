@@ -18,7 +18,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationUsageDescription": "Your location is used when you register as new user.",
+        "NSLocationWhenInUseUsageDescription": "Your location is used when you register as new user."
+
+      }
     },
     "android": {
       "adaptiveIcon": {

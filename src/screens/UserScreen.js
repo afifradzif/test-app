@@ -3,13 +3,14 @@ import React, { useState, useEffect } from 'react'
 import Connection from '../connectivity/Connection';
 import { PrimaryLoader } from '../components/MainComponent';
 import moment from 'moment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let Server = new Connection();
 
 const UserScreen = ({ route }) => {
 
     //Get the param
-    const { id } = route.params;
+    const { id, newUser } = route.params;
     const [users, setUsers] = useState();
     const [showloading, setShowLoading] = useState(true);
 
@@ -19,12 +20,29 @@ const UserScreen = ({ route }) => {
 
     const getData = async () => {
 
-        //Get users
-        await Server.getUser(id).then(responseJson => {
-            //console.log("getUser", responseJson)
-            setUsers(responseJson)
-            setShowLoading(false)
-        })
+        if (newUser == 1) {
+
+            //Get new user
+            try {
+                const value = await AsyncStorage.getItem("NEW_USER");
+                if (value !== null) {
+                    // We have data!!
+                    setUsers(JSON.parse(value))
+                    setShowLoading(false)
+                }
+            } catch (error) {
+                // Error retrieving data
+                console.log("NEW_USER error", error);
+            }
+
+        } else {
+            //Get users
+            await Server.getUser(id).then(responseJson => {
+                //console.log("getUser", responseJson)
+                setUsers(responseJson)
+                setShowLoading(false)
+            })
+        }
 
     }
 
@@ -49,23 +67,23 @@ const UserScreen = ({ route }) => {
                             <Text style={{ color: 'gray' }}>Profile</Text>
                         </View> */}
                         <View>
-                        <Text style={{ color: 'gray' }}>Username</Text>
-                        <Text style={{ fontSize: 14, color: "#000", marginBottom: 5 }}>{users.username}</Text>
-                        <Text style={{ color: 'gray', marginTop:10 }}>Email</Text>
-                        <Text style={{ fontSize: 14, color: "#000", marginBottom: 10 }}>{users.email}</Text>
-                        <Text style={{ color: 'gray', marginTop:10 }}>Address</Text>
-                        <Text style={{ fontSize: 14, color: "#000"}}>{users.address.street}</Text>
-                        <Text style={{ fontSize: 14, color: "#000"}}>{users.address.suite}</Text>
-                        <Text style={{ fontSize: 14, color: "#000"}}>{users.address.city}</Text>
-                        <Text style={{ fontSize: 14, color: "#000"}}>{users.address.zipcode}</Text>
-                        <Text style={{ color: 'gray', marginTop:10 }}>Phone</Text>
-                        <Text style={{ fontSize: 14, color: "#000", marginBottom: 10 }}>{users.phone}</Text>
-                        <Text style={{ color: 'gray', marginTop:10 }}>Website</Text>
-                        <Text style={{ fontSize: 14, color: "#000", marginBottom: 10 }}>{users.website}</Text>
-                        <Text style={{ color: 'gray', marginTop:10 }}>Company</Text>
-                        <Text style={{ fontSize: 14, color: "#000"}}>{users.company.name}</Text>
-                        <Text style={{ fontSize: 14, color: "#000"}}>{users.company.catchPhrase}</Text>
-                        <Text style={{ fontSize: 14, color: "#000"}}>{users.company.bs}</Text>
+                            <Text style={{ color: 'gray' }}>Username</Text>
+                            <Text style={{ fontSize: 14, color: "#000", marginBottom: 5 }}>{users.username}</Text>
+                            <Text style={{ color: 'gray', marginTop: 10 }}>Email</Text>
+                            <Text style={{ fontSize: 14, color: "#000", marginBottom: 10 }}>{users.email}</Text>
+                            <Text style={{ color: 'gray', marginTop: 10 }}>Address</Text>
+                            <Text style={{ fontSize: 14, color: "#000" }}>{users.address.street}</Text>
+                            <Text style={{ fontSize: 14, color: "#000" }}>{users.address.suite}</Text>
+                            <Text style={{ fontSize: 14, color: "#000" }}>{users.address.city}</Text>
+                            <Text style={{ fontSize: 14, color: "#000" }}>{users.address.zipcode}</Text>
+                            <Text style={{ color: 'gray', marginTop: 10 }}>Phone</Text>
+                            <Text style={{ fontSize: 14, color: "#000", marginBottom: 10 }}>{users.phone}</Text>
+                            <Text style={{ color: 'gray', marginTop: 10 }}>Website</Text>
+                            <Text style={{ fontSize: 14, color: "#000", marginBottom: 10 }}>{users.website}</Text>
+                            <Text style={{ color: 'gray', marginTop: 10 }}>Company</Text>
+                            <Text style={{ fontSize: 14, color: "#000" }}>{users.company.name}</Text>
+                            <Text style={{ fontSize: 14, color: "#000" }}>{users.company.catchPhrase}</Text>
+                            <Text style={{ fontSize: 14, color: "#000" }}>{users.company.bs}</Text>
                         </View>
                     </View>
                 </ScrollView>
