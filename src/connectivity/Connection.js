@@ -20,4 +20,19 @@ export default class Server {
           });
       }
 
+      async getUser(id) {
+
+        return axios
+          .get(ServerIP + "/users/" + id)
+          .then(res => {
+            return res.data;
+    
+          })
+          .catch(error => {
+    
+            console.log("getUsers error: " + error)
+    
+          });
+      }
+
 }

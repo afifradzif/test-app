@@ -6,7 +6,7 @@ import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 let Server = new Connection();
 
-const MainScreen = () => {
+const MainScreen = ({ navigation }) => {
 
     const [users, setUsers] = useState([]);
 
@@ -18,15 +18,19 @@ const MainScreen = () => {
 
         //Get users
         await Server.getUsers().then(responseJson => {
-            console.log("getUsers", responseJson)
+            //console.log("getUsers", responseJson)
             setUsers(responseJson)
         })
 
     }
 
+    const addNewUser = async () => {
+        navigation.push("AddUser")
+    }
+
     return (
         <View style={{ flex: 1 }}>
-            <SafeAreaView style={{ height: 100, backgroundColor: '#ffe45e', marginLeft: 0, justifyContent:'center', marginTop: Platform.OS == 'android' ? 10:0 }}>
+            <SafeAreaView style={{ height: 100, backgroundColor: '#ffe45e', marginLeft: 0, justifyContent:'center' }}>
                 <Text style={{ textAlign: 'center', fontWeight: '700', fontSize: 16 }}>React Native Test App</Text>
             </SafeAreaView>
             <View style={{ flex: 6 }}>
@@ -35,8 +39,8 @@ const MainScreen = () => {
                         <Text style={{ fontSize: 14, color: 'gray' }}>Users</Text>
                         {users.map((items, index) => (
                             <>
-                                <TouchableOpacity key={index} onPress={() => { }}>
-                                    <View style={{ marginTop: 10 }}>
+                                <TouchableOpacity onPress={() => {navigation.push("User",{id:items.id}) }}>
+                                    <View style={{ marginTop: 10 }} key={index} >
                                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                             <AntDesign name="user" size={24} color="black" />
                                             <Text> {items.username}</Text>
@@ -54,7 +58,7 @@ const MainScreen = () => {
                 </ScrollView>
             </View>
             <View style={{ flex: 1, padding: 10, marginTop: 10 }}>
-                <PrimaryButton title='Add New User' />
+                <PrimaryButton title='Add New User' onPress={() => addNewUser()} />
             </View>
         </View>
     )

@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Alert } from 'react-native';
-import { PrimaryButton } from './src/components/MainComponent';
-import Connection from './src/connectivity/Connection';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import MainScreen from './src/screens/MainScreen'
+import AppNavigator from './src/navigation/AppNavigator'
 
 export default function App() {
 
   return (
     <View style={styles.container}>
-    <MainScreen/>
+      <AppNavigator />
     </View>
   );
 }
@@ -16,9 +15,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    //marginLeft: 20
+    backgroundColor: '#fff'
   },
 });

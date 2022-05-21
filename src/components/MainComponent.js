@@ -24,6 +24,16 @@ const PrimaryButton = (props) => {
     )
 }
 
+
+const PrimaryLoader = (props) => {
+    return (
+        <View style={{ height: '80%', justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator />
+            <Text>Loading..</Text>
+        </View>
+    )
+}
+
 export { 
-    PrimaryButton
+    PrimaryButton, PrimaryLoader
 };
