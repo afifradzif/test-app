@@ -22,14 +22,15 @@
       "infoPlist": {
         "NSLocationUsageDescription": "Your location is used when you register as new user.",
         "NSLocationWhenInUseUsageDescription": "Your location is used when you register as new user."
-
-      }
+      },
+      "bundleIdentifier": "com.pnbappstage.TestApp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.pnbappstage.TestApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
